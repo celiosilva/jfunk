@@ -13,19 +13,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-import org.cbs4j.functionality.dataaccess.entity.IsEntityId;
-
+import br.com.delogic.jfunk.Converter;
 import br.com.delogic.jfunk.Each;
 
 public class f {
-
-    public static final boolean equals(IsEntityId<?> entityId, Object obj) {
-        if (!(obj instanceof IsEntityId<?>)) {
-            return false;
-        }
-        IsEntityId<?> entityIdCompared = (IsEntityId<?>) obj;
-        return equals(entityId.getId(), entityIdCompared.getId());
-    }
 
     /**
      * If both objects are null it'll return false
@@ -132,32 +123,6 @@ public class f {
         return true;
     }
 
-    public static final <IN extends Object, OUT, IND extends IN> List<OUT> convertList(
-        Collection<IND> data, Converter<IN, OUT> converter) {
-        List<OUT> conversions = new ArrayList<OUT>();
-        if (data != null && !data.isEmpty()) {
-            for (IN in : data) {
-                if (in != null) {
-                    conversions.add(converter.convert(in));
-                }
-            }
-        }
-        return conversions;
-    }
-
-    public static final <IN extends Object, OUT, IND extends IN> Set<OUT> convertSet(
-        Collection<IND> data, Converter<IN, OUT> converter) {
-        Set<OUT> conversions = new HashSet<OUT>();
-        if (data != null && !data.isEmpty()) {
-            for (IN in : data) {
-                if (in != null) {
-                    conversions.add(converter.convert(in));
-                }
-            }
-        }
-        return conversions;
-    }
-
     @SuppressWarnings("unchecked")
     public static final <C extends Comparable<C>> int compare(C c1, C c2) {
         if (notNull(c1, c2)) {
@@ -227,28 +192,6 @@ public class f {
                 each.each((E) es[i], i);
             }
         }
-    }
-
-    public static final <IN> String toStringList(String separador,
-        Collection<? extends IN> col, Converter<IN, String> converter) {
-        if (f.isEmpty(col)) {
-            return "";
-        }
-        StringBuilder sb = new StringBuilder();
-        for (IN in : col) {
-            String val = converter.convert(in);
-            if (f.notEmpty(val)) {
-                sb.append(val);
-                sb.append(", ");
-            }
-        }
-        String list = sb.toString();
-        if (list.endsWith(", ")) {
-            list += "tbr@#";
-            list = list.replace(", tbr@#", "");
-        }
-        return list;
-
     }
 
     public static final boolean isNumber(String value) {
