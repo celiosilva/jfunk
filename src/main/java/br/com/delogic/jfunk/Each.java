@@ -1,4 +1,4 @@
-package br.com.delogic.jfunk.tbd;
+package br.com.delogic.jfunk;
 
 public interface Each<E> {
 

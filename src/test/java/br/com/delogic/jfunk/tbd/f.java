@@ -15,6 +15,8 @@ import java.util.regex.Pattern;
 
 import org.cbs4j.functionality.dataaccess.entity.IsEntityId;
 
+import br.com.delogic.jfunk.Each;
+
 public class f {
 
     public static final boolean equals(IsEntityId<?> entityId, Object obj) {

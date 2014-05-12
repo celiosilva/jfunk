@@ -2,6 +2,8 @@ package br.com.delogic.jfunk.tbd;
 
 import java.util.Collection;
 
+import br.com.delogic.jfunk.Each;
+
 public class ForEach<E extends Object> {
 
     @SuppressWarnings("unchecked")

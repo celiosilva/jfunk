@@ -12,7 +12,7 @@ public class find {
             return new when<String>() {
                 @Override
                 public boolean found(String e) {
-                    return has.content(e) && e.startsWith(with);
+                    return Has.content(e) && e.startsWith(with);
                 }
             };
         }

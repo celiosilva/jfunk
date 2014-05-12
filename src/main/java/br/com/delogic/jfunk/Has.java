@@ -2,7 +2,7 @@ package br.com.delogic.jfunk;
 
 import java.util.Collection;
 
-public class has {
+public class Has {
 
     public static final boolean content(String string) {
         return string != null && !string.trim().isEmpty();
