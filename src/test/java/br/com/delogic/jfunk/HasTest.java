@@ -30,7 +30,8 @@ public class HasTest extends Assert {
     @Test
     public void testHasContentArray() {
         String[] array = null;
-        assertTrue(Has.content(new String[] { "" }));
+        assertTrue(Has.content(new String[] { "teste" }));
+        assertFalse(Has.content(new String[] { "" }));
         assertFalse(Has.content(new String[] {}));
         assertFalse(Has.content(array));
     }

@@ -9,11 +9,27 @@ public class Has {
     }
 
     public static final boolean content(Collection<?> collection) {
-        return collection != null && !collection.isEmpty();
+        if (collection == null || collection.size() == 0) {
+            return false;
+        }
+        for (Object obj : collection) {
+            if (Has.content(obj)) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    public static final boolean content(Object[] array) {
-        return array != null && array.length > 0;
+    public static final boolean content(Object... array) {
+        if (array == null || array.length == 0) {
+            return false;
+        }
+        for (Object obj : array) {
+            if (Has.content(obj)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static final boolean content(Object object) {
