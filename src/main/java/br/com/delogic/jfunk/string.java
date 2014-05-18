@@ -9,7 +9,7 @@ public class string {
      * Removes characters accents like á à â ã ç replacing them by a a a a c
      *
      * @param s
-     * @return
+     * @return A normalized string without accents
      */
     public static synchronized String removeAccent(String s) {
         String temp = Normalizer.normalize(s, Normalizer.Form.NFD);

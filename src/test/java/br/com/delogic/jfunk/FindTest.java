@@ -2,6 +2,7 @@ package br.com.delogic.jfunk;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -18,6 +19,7 @@ public class FindTest extends Assert {
     private List<String>        list;
     private Set<String>         set;
     private Map<String, String> map;
+    private Integer[]           integers;
 
     @Before
     public void init() {
@@ -27,6 +29,7 @@ public class FindTest extends Assert {
         for (String str : list) {
             map.put(str, str);
         }
+        integers = new Integer[] { null, 1, 2, null, 4 };
     }
 
     @Test
@@ -38,7 +41,21 @@ public class FindTest extends Assert {
             }
         }));
 
+        assertEquals("John", Find.first(list.toArray(new String[list.size()]), new When<String>() {
+            @Override
+            public boolean found(String e) {
+                return e.startsWith("J");
+            }
+        }));
+
         assertEquals(Integer.valueOf(1000), Find.first(Arrays.asList(10, 100, 1000), new When<Integer>() {
+            @Override
+            public boolean found(Integer e) {
+                return e > 100;
+            }
+        }));
+
+        assertEquals(Integer.valueOf(1000), Find.first(new Integer[] { 10, 100, 1000 }, new When<Integer>() {
             @Override
             public boolean found(Integer e) {
                 return e > 100;
@@ -56,9 +73,24 @@ public class FindTest extends Assert {
                 return false;
             }
         });
+        Find.first(list.toArray(new String[list.size()]), new When<String>() {
+            @Override
+            public boolean found(String e) {
+                fail("should not execute");
+                return false;
+            }
+        });
 
         list = null;
         Find.first(list, new When<String>() {
+            @Override
+            public boolean found(String e) {
+                fail("should not execute");
+                return false;
+            }
+        });
+
+        Find.first((String[]) null, new When<String>() {
             @Override
             public boolean found(String e) {
                 fail("should not execute");
@@ -71,6 +103,14 @@ public class FindTest extends Assert {
     public void testFindFirstNullElements() {
         list.add(null);
         Find.first(list, new When<String>() {
+            @Override
+            public boolean found(String e) {
+                assertNotNull(e);
+                return false;
+            }
+        });
+
+        Find.first(list.toArray(new String[list.size()]), new When<String>() {
             @Override
             public boolean found(String e) {
                 assertNotNull(e);
@@ -196,7 +236,7 @@ public class FindTest extends Assert {
     @Test
     public void testFindAllMapNullCollection() {
         map.clear();
-        Map<String,String> found = Find.all(map, new When<Entry<String,String>>() {
+        Map<String, String> found = Find.all(map, new When<Entry<String, String>>() {
             @Override
             public boolean found(Entry<String, String> e) {
                 fail("should not execute");
@@ -207,9 +247,9 @@ public class FindTest extends Assert {
         assertTrue(found.isEmpty());
 
         map = null;
-        found = Find.all(map, new When<Entry<String,String>>() {
+        found = Find.all(map, new When<Entry<String, String>>() {
             @Override
-            public boolean found(Entry<String,String> e) {
+            public boolean found(Entry<String, String> e) {
                 fail("should not execute");
                 return true;
             }
@@ -222,9 +262,9 @@ public class FindTest extends Assert {
     @Test
     public void testFindAllMapNullElements() {
         map.put(null, null);
-        Map<String,String> found = Find.all(map, new When<Entry<String,String>>() {
+        Map<String, String> found = Find.all(map, new When<Entry<String, String>>() {
             @Override
-            public boolean found(Entry<String,String> e) {
+            public boolean found(Entry<String, String> e) {
                 assertNotNull(e);
                 assertNotNull(e.getKey());
                 assertNotNull(e.getValue());
@@ -234,5 +274,26 @@ public class FindTest extends Assert {
         assertEquals(3, found.size());
     }
 
+    @Test
+    public void testFindFirstNonNull() {
+        assertEquals("John", Find.firstNonNull(list));
+        assertEquals(new Integer(1), Find.firstNonNull(integers));
+        assertEquals(new Long(3), Find.firstNonNull(null, null, null, null, 3L));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testFindFirstNonNullExNullElements() {
+        Find.firstNonNull(new Integer[] {});
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testFindFirstNonNullExNullCollection() {
+        Find.firstNonNull((Collection<String>) null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testFindFirstNonNullExNullArray() {
+        Find.firstNonNull((String[]) null);
+    }
 
 }

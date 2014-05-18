@@ -24,6 +24,13 @@ import java.util.Set;
  */
 public class Find {
 
+    private static final When<Object> WHEN_NOT_NULL = new When<Object>() {
+                                                        @Override
+                                                        public boolean found(Object e) {
+                                                            return e != null;
+                                                        }
+                                                    };
+
     /**
      * Finds and returns the first element based on When implementation. If the
      * collection is null no execution will be performed. Null elements will be
@@ -48,6 +55,66 @@ public class Find {
             }
         }
         return null;
+    }
+
+    /**
+     * Finds and returns the first element based on When implementation. If the
+     * array is null no execution will be performed. Null elements will be
+     * discarded avoiding NullPointerException.
+     *
+     * @param from
+     *            Array to iterate over and find the proper element
+     * @param when
+     *            Predicate to be executed and return the correct element
+     * @return an element considered found by "when" predicate or null if none
+     *         is considered found.
+     */
+    public static <E> E first(E[] from, When<E> when) {
+
+        if (!Has.content(from)) {
+            return null;
+        }
+
+        for (E e : from) {
+            if (e != null && when.found(e)) {
+                return e;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Finds and returns the first non null element from this collection. If the
+     * collection is null no execution will be performed.
+     *
+     * @param from
+     *            Collection to search for the first non null element.
+     * @return the first non null element or throws a IllegalArgumentException
+     */
+    @SuppressWarnings("unchecked")
+    public static <E> E firstNonNull(Collection<? extends E> from) {
+        Object element = first(from, WHEN_NOT_NULL);
+        if (element == null) {
+            throw new IllegalArgumentException("There's must be at least one non null element in the collection");
+        }
+        return (E) element;
+    }
+
+    /**
+     * Finds and returns the first non null element from this array. If the
+     * array is null no execution will be performed.
+     *
+     * @param from
+     *            Array to search for the first non null element.
+     * @return the first non null element or throws a IllegalArgumentException
+     */
+    @SuppressWarnings("unchecked")
+    public static <E> E firstNonNull(E... from) {
+        Object element = first(from, WHEN_NOT_NULL);
+        if (element == null) {
+            throw new IllegalArgumentException("There's must be at least one non null element in the array");
+        }
+        return (E) element;
     }
 
     /**

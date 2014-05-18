@@ -61,7 +61,7 @@ public class ForEach {
      * collection is null no execution will happen. Changes in the original loop
      * are allowed while iterating.
      *
-     * @param collection
+     * @param array
      *            to iterate over
      * @param each
      *            function to be executed
