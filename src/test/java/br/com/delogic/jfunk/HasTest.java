@@ -33,6 +33,9 @@ public class HasTest extends Assert {
         assertTrue(Has.content(new String[] { "teste" }));
         assertFalse(Has.content(new String[] { "" }));
         assertFalse(Has.content(new String[] {}));
+        assertTrue(Has.content(new Object[] { "teste" }));
+        assertFalse(Has.content(new Object[] { "" }));
+        assertFalse(Has.content(new Object[] {}));
         assertFalse(Has.content(array));
     }
 

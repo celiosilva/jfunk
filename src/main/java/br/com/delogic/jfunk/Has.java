@@ -32,6 +32,18 @@ public class Has {
         return false;
     }
 
+    public static final boolean content(String... array) {
+        if (array == null || array.length == 0) {
+            return false;
+        }
+        for (String string : array) {
+            if (Has.content(string)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static final boolean content(Object object) {
         if (object instanceof String) {
             return content((String) object);
