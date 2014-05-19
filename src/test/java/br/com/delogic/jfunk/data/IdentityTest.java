@@ -38,7 +38,6 @@ public class IdentityTest extends Assert {
         assertTrue(Identifiable.class.isAssignableFrom(id.getClass()));
         assertEquals("Type:br.com.delogic.jfunk.data.IdentityTest$MyIdentifiableObject id:1", id.toString());
         assertNotNull(id.hashCode());
-        assertEquals(1, id.hashCode());
 
     }
 
@@ -67,6 +66,14 @@ public class IdentityTest extends Assert {
         assertFalse(id.equals(""));
         assertFalse(id.equals(null));
 
+    }
+
+    @Test
+    public void testHashCode(){
+        MyIdentifiableObject id = new MyIdentifiableObject();
+        id.setId(1L);
+        assertEquals(String.valueOf(1L).hashCode(), id.hashCode());
+        assertNotNull(new MyIdentifiableObject().hashCode());
     }
 
 }

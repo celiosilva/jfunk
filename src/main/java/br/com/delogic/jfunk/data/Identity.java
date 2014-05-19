@@ -4,7 +4,7 @@ public abstract class Identity<E> implements Identifiable<E> {
 
     @Override
     public int hashCode() {
-        return getId() != null ? Integer.parseInt(String.valueOf(getId())) : super.hashCode();
+        return getId() != null ? String.valueOf(getId()).hashCode() : super.hashCode();
     }
 
     @SuppressWarnings("unchecked")
