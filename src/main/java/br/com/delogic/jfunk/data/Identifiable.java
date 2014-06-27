@@ -2,7 +2,7 @@ package br.com.delogic.jfunk.data;
 
 /**
  * This interface marks an object as identifiable so you can trust there's an
- * unique Id to separate amont other objects.
+ * unique Id to identify itself among other objects.
  *
  * @author celio@delogic.com.br
  *
