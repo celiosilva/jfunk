@@ -1,5 +1,6 @@
 package br.com.delogic.jfunk.data;
 
+
 public abstract class Identity<E> implements Identifiable<E> {
 
     @Override
@@ -22,7 +23,7 @@ public abstract class Identity<E> implements Identifiable<E> {
 
         E thisId = this.getId();
         E thatId = ((Identity<E>) obj).getId();
-        return (thisId == thatId) || (thisId != null && thisId.equals(thatId));
+        return (thisId != null && (thisId == thatId || thisId.equals(thatId)));
     }
 
     @Override
