@@ -3,7 +3,7 @@ package br.com.delogic.jfunk;
 import java.text.Normalizer;
 import java.util.regex.Pattern;
 
-public class string {
+public class Strings {
 
     /**
      * Removes characters accents like á à â ã ç replacing them by a a a a c

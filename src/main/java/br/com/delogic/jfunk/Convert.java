@@ -2,11 +2,15 @@ package br.com.delogic.jfunk;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
-public class convert {
+import br.com.delogic.jfunk.data.Property;
+
+public class Convert {
 
     @SuppressWarnings("unchecked")
     public static final <In, C extends Collection<In>> Convertible<In> from(C collection) {
@@ -39,6 +43,17 @@ public class convert {
                 }
             });
             return set;
+        }
+
+        public <A, Out> Map<A, Out> toMapOf(final Converter<In, Property<A, Out>> converter) {
+            final Map<A, Out> map = new HashMap<A, Out>();
+            ForEach.element(data, new Each<In>() {
+                public void each(In e, int index) {
+                    Property<A, Out> po = converter.to(e);
+                    map.put(po.getId(), po.getValue());
+                }
+            });
+            return map;
         }
 
     }

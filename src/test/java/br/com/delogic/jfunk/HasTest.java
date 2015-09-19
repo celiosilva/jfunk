@@ -33,10 +33,12 @@ public class HasTest extends Assert {
         assertTrue(Has.content(new String[] { "teste" }));
         assertFalse(Has.content(new String[] { "" }));
         assertFalse(Has.content(new String[] {}));
-        assertTrue(Has.content(new Object[] { "teste" }));
+        assertTrue(Has.content(new Object[] { "teste", 1 }));
         assertFalse(Has.content(new Object[] { "" }));
         assertFalse(Has.content(new Object[] {}));
         assertFalse(Has.content(array));
+        assertTrue(Has.content(new Object[] { "teste", 1 }));
+        assertFalse(Has.content(new Object[] { null, null }));
     }
 
     @Test

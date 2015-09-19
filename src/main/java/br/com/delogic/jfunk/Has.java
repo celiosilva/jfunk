@@ -20,7 +20,7 @@ public class Has {
         return false;
     }
 
-    public static final boolean content(Object... array) {
+    public static final boolean content(Object[] array) {
         if (array == null || array.length == 0) {
             return false;
         }
