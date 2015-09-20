@@ -95,4 +95,19 @@ public class ConvertTest extends Assert {
         assertTrue(map.containsKey("King"));
     }
 
+    @Test
+    public void shouldConvertUsingArray() {
+        givenListOfPerson();
+        whenConvertinUsingArray();
+        thenReturnAMapOfPersonByName();
+    }
+
+    private void whenConvertinUsingArray() {
+        map = Convert.from(list.toArray(new Person[list.size()])).toMapOf(new Converter<Person, Property<String, Person>>() {
+            public Property<String, Person> to(Person in) {
+                return new Property<String, ConvertTest.Person>(in.name, in);
+            }
+        });
+    }
+
 }

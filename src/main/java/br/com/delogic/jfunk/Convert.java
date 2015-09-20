@@ -21,6 +21,14 @@ public class Convert {
         return convertible;
     }
 
+    public static final <In> Convertible<In> from(In... collection) {
+        Convertible<In> convertible = new Convertible<In>();
+        if (Has.content(collection)) {
+            convertible.data = (In[]) collection;
+        }
+        return convertible;
+    }
+
     public static class Convertible<In> {
 
         private In[] data;
